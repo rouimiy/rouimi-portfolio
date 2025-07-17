@@ -1,0 +1,120 @@
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import {Experience, Skill, SkillsService} from '../../../core/services/skills.service';
+import {slideInAnimation, staggerAnimation} from '../../shared/animations/animation';
+
+
+@Component({
+  selector: 'app-about',
+  standalone: true,
+  imports: [CommonModule],
+  animations: [slideInAnimation, staggerAnimation],
+  template: `
+    <section class="about-hero">
+      <div class="container">
+        <div class="about-content" [@slideIn]>
+          <h1 class="page-title">À propos de moi</h1>
+          <p class="about-description">
+            Développeur Full Stack passionné, je cumule plus de 8 années d’expérience dans la conception et le
+            développement d’applications web robustes et performantes.<br/>
+            Spécialisé en Java (Spring Boot) et Angular, j’interviens sur l’ensemble du cycle de vie logiciel : de
+            l’architecture à la mise en production, en passant par l’intégration continue et la qualité logicielle.<br/>
+
+            Au fil de mes missions, j’ai évolué dans des environnements complexes et exigeants, intégrant des
+            technologies et approches telles que AWS, Kafka, l’architecture hexagonale,
+            CQRS ou encore la programmation réactive. Je porte une attention constante à la qualité du code (tests
+            unitaires, revue de code, CI/CD) et à la scalabilité des systèmes.<br/>
+
+            J’ai eu l’opportunité de contribuer à des projets à fort enjeu pour des clients comme GRTgaz, Abeille
+            Assurance, Enedis, Crédit Logement et Viamedis, dans des contextes
+            agiles (Scrum, SAFe), où la rigueur technique allait de pair avec la collaboration en équipe.<br/>
+
+            Aujourd’hui, je souhaite mettre mon expertise au service de projets techniques ambitieux, au sein d’une
+            équipe engagée, stimulante, et portée par une vraie culture produit.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="skills-section">
+      <div class="container">
+        <h2 class="section-title" [@slideIn]>Compétences Techniques</h2>
+        <div class="skills-categories" [@stagger]>
+          <div class="skill-category" *ngFor="let category of skillCategories">
+            <h3>{{ category.name }}</h3>
+            <div class="skills-list">
+              <div class="skill-item" *ngFor="let skill of category.skills">
+                <div class="skill-header">
+                  <span class="skill-name">
+                    <i [class]="skill.icon"></i>
+                    {{ skill.name }}
+                  </span>
+                  <span class="skill-level">{{ skill.level }}%</span>
+                </div>
+                <div class="skill-bar">
+                  <div class="skill-progress" [style.width.%]="skill.level"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="personal-section">
+      <div class="container">
+        <h2 class="section-title" [@slideIn]>Un peu plus sur moi</h2>
+        <div class="personal-grid" [@stagger]>
+          <div class="personal-card">
+            <div class="card-icon">
+              <i class="fas fa-graduation-cap"></i>
+            </div>
+            <h3>Formation</h3>
+            <p>Cycle d'ingénieur 3il (Limoges) France.<br/> Cycle préparatoire High-Tech (Rabat) Maroc.</p>
+          </div>
+          <div class="personal-card">
+            <div class="card-icon">
+              <i class="fas fa-heart"></i>
+            </div>
+            <h3>Passion</h3>
+            <p>Passionné par l'innovation technologique, l'open source et les nouvelles tendances du développement.</p>
+          </div>
+          <div class="personal-card">
+            <div class="card-icon">
+              <i class="fas fa-target"></i>
+            </div>
+            <h3>Objectif</h3>
+            <p>Créer des solutions digitales qui ont un impact positif et apportent de la valeur aux utilisateurs.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  `,
+  styleUrls: ['./about.component.scss']
+})
+export class AboutComponent implements OnInit {
+  skills: Skill[] = [];
+  experiences: Experience[] = [];
+  skillCategories: any[] = [];
+
+  constructor(private skillsService: SkillsService) {}
+
+  ngOnInit(): void {
+    this.skillsService.getSkills().subscribe(skills => {
+      this.skills = skills;
+      this.organizeSkillsByCategory();
+    });
+
+    this.skillsService.getExperiences().subscribe(experiences => {
+      this.experiences = experiences;
+    });
+  }
+
+  private organizeSkillsByCategory(): void {
+    const categories = [...new Set(this.skills.map(skill => skill.category))];
+    this.skillCategories = categories.map(category => ({
+      name: category,
+      skills: this.skills.filter(skill => skill.category === category)
+    }));
+  }
+}

@@ -1,0 +1,122 @@
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { ProjectsService, Project } from '../../../core/services/projects.service';
+import { slideInAnimation, fadeInAnimation, staggerAnimation } from '../../shared/animations/animation';
+
+@Component({
+  selector: 'app-home',
+  standalone: true,
+  imports: [CommonModule, RouterModule],
+  animations: [slideInAnimation, fadeInAnimation, staggerAnimation],
+  template: `
+    <section class="hero-section" [@fadeIn]>
+      <div class="hero-container">
+        <div class="hero-content" [@slideIn]>
+          <h1 class="hero-title">
+            Salut, je suis <span class="highlight">Rouimi Youssef</span>
+          </h1>
+          <p class="hero-subtitle">
+            Développeur fullstack Java / Angular freelance passionné par la création d’applications web modernes et performantes.
+          </p>
+          <div class="hero-buttons">
+            <a routerLink="/experiences" class="btn btn-primary">
+              <i class="fas fa-user-tie"></i>
+              Voir mes Expériences
+            </a>
+            <a routerLink="/contact" class="btn btn-secondary">
+              <i class="fas fa-envelope"></i>
+              Me contacter
+            </a>
+          </div>
+        </div>
+        <div class="hero-image" [@slideIn]>
+          <div class="image-placeholder">
+            <i class="fas fa-code"></i>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="services-section">
+      <div class="container">
+        <h2 class="section-title" [@slideIn]>Mes Services</h2>
+        <div class="services-grid" [@stagger]>
+          <div class="service-card" *ngFor="let service of services">
+            <div class="service-icon">
+              <i [class]="service.icon"></i>
+            </div>
+            <h3>{{ service.title }}</h3>
+            <p>{{ service.description }}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="featured-projects-section" *ngIf="featuredProjects.length > 0">
+      <div class="container">
+        <h2 class="section-title" [@slideIn]>Projets Sélectionnés</h2>
+        <div class="projects-grid" [@stagger]>
+          <div class="project-card" *ngFor="let project of featuredProjects">
+            <div class="project-image">
+              <img [src]="project.imageUrl" [alt]="project.title" />
+              <div class="project-overlay">
+                <div class="project-links">
+                  <a [href]="project.githubUrl" target="_blank" class="project-link" *ngIf="project.githubUrl">
+                    <i class="fab fa-github"></i>
+                  </a>
+                  <a [href]="project.liveUrl" target="_blank" class="project-link" *ngIf="project.liveUrl">
+                    <i class="fas fa-external-link-alt"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="project-content">
+              <h3>{{ project.title }}</h3>
+              <p>{{ project.description }}</p>
+              <div class="project-tech">
+                <span class="tech-tag" *ngFor="let tech of project.technologies">{{ tech }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="section-footer" [@slideIn]>
+          <a routerLink="/projects" class="btn btn-outline">
+            Voir tous les projets
+            <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+  `,
+  styleUrls: ['./home.component.scss']
+})
+export class HomeComponent implements OnInit {
+  featuredProjects: Project[] = [];
+
+  services = [
+    {
+      title: 'Développement Web',
+      description: 'Applications web modernes avec Angular',
+      icon: 'fas fa-laptop-code'
+    },
+    {
+      title: 'Développement Backend',
+      description: 'Applications, Micro-service et integration continu',
+      icon: 'fas fa-network-wired'
+    },
+    {
+      title: 'Maintenance & Support',
+      description: 'Maintenance et évolution d\'applications existantes',
+      icon: 'fas fa-tools'
+    }
+  ];
+
+  constructor(private projectsService: ProjectsService) {}
+
+  ngOnInit(): void {
+    this.projectsService.getFeaturedProjects().subscribe(
+      projects => this.featuredProjects = projects
+    );
+  }
+}
