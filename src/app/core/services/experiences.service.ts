@@ -27,7 +27,7 @@ export class ExperiencesService {
     {
       title: 'Développeur Full Stack Senior',
       company: 'GRTgaz',
-      imageUrl: 'https://seekvectorlogo.com/wp-content/uploads/2019/10/grtgaz-vector-logo.png',
+      imageUrl: 'https://d9m1iyeq935g9.cloudfront.net/capture-decran-2016-10-17-a-1142591476697557.png',
       period: 'Avril 2022 – Déc 2023',
       description: 'Refonte SI modernes et responsive, optimisation des performances, CI/CD GitLab, architecture hexagonale, CQRS, Web Services et tests automatisés.',
       technologies: ['Angular 15', 'Java 17', 'Spring boot', 'MongoDb', 'Webflux', 'Kafka', 'AWS', 'Gitlab']
