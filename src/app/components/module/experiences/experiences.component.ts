@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {Experience, Skill, SkillsService} from '../../../core/services/skills.service';
 import {slideInAnimation, staggerAnimation} from '../../shared/animations/animation';
+import {Experience, ExperiencesService} from '../../../core/services/experiences.service';
 
 
 @Component({
@@ -13,11 +13,7 @@ import {slideInAnimation, staggerAnimation} from '../../shared/animations/animat
     <section class="experience-hero">
       <div class="container">
         <div class="experience-content" [@slideIn]>
-          <h1 class="page-title">Expérience Professionnelle</h1>
-          <p class="experience-description">
-            Découvrez un aperçu de mes expériences professionnelles, sur des missions à fort enjeu,
-            avec des technologies modernes et des solutions innovantes.
-          </p>
+          <h1 class="page-title">Mes expériences Professionnelles</h1>
         </div>
       </div>
     </section>
@@ -26,7 +22,7 @@ import {slideInAnimation, staggerAnimation} from '../../shared/animations/animat
         <div class="experiences-grid" [@stagger]>
           <div class="experience-card" *ngFor="let experience of experiences">
             <div class="experience-image">
-              <img [src]="" [alt]="experience.title" />
+              <img [src]="experience.imageUrl" [alt]="experience.title" />
               <div class="experience-overlay">
                 <div class="experience-info">
                   <h3>{{ experience.title }}</h3>
@@ -51,28 +47,13 @@ import {slideInAnimation, staggerAnimation} from '../../shared/animations/animat
   styleUrls: ['./experiences.component.scss']
 })
 export class ExperiencesComponent implements OnInit {
-  skills: Skill[] = [];
   experiences: Experience[] = [];
-  skillCategories: any[] = [];
 
-  constructor(private skillsService: SkillsService) {}
+  constructor(private experiencesService: ExperiencesService) {}
 
   ngOnInit(): void {
-    this.skillsService.getSkills().subscribe(skills => {
-      this.skills = skills;
-      this.organizeSkillsByCategory();
-    });
-
-    this.skillsService.getExperiences().subscribe(experiences => {
+    this.experiencesService.getExperiences().subscribe(experiences => {
       this.experiences = experiences;
     });
-  }
-
-  private organizeSkillsByCategory(): void {
-    const categories = [...new Set(this.skills.map(skill => skill.category))];
-    this.skillCategories = categories.map(category => ({
-      name: category,
-      skills: this.skills.filter(skill => skill.category === category)
-    }));
   }
 }

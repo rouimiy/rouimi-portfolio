@@ -13,38 +13,34 @@ import { slideInAnimation, staggerAnimation } from '../../shared/animations/anim
       <div class="container">
         <div class="hero-content" [@slideIn]>
           <h1 class="page-title">Mes Projets</h1>
-          <p class="hero-description">
-            Découvrez une sélection de mes réalisations, allant du développement web au mobile,
-            avec des technologies modernes et des solutions innovantes.
-          </p>
         </div>
       </div>
     </section>
 
-    <section class="projects-filters">
-      <div class="container">
-        <div class="filter-buttons" [@slideIn]>
-          <button
-            class="filter-btn"
-            [class.active]="selectedFilter === 'all'"
-            (click)="filterProjects('all')">
-            Tous
-          </button>
-          <button
-            class="filter-btn"
-            [class.active]="selectedFilter === 'Web'"
-            (click)="filterProjects('Web')">
-            Web
-          </button>
-          <button
-            class="filter-btn"
-            [class.active]="selectedFilter === 'Mobile'"
-            (click)="filterProjects('Mobile')">
-            Mobile
-          </button>
-        </div>
-      </div>
-    </section>
+<!--    <section class="projects-filters">-->
+<!--      <div class="container">-->
+<!--        <div class="filter-buttons" [@slideIn]>-->
+<!--          <button-->
+<!--            class="filter-btn"-->
+<!--            [class.active]="selectedFilter === 'all'"-->
+<!--            (click)="filterProjects('all')">-->
+<!--            Tous-->
+<!--          </button>-->
+<!--          <button-->
+<!--            class="filter-btn"-->
+<!--            [class.active]="selectedFilter === 'Web'"-->
+<!--            (click)="filterProjects('Web')">-->
+<!--            Web-->
+<!--          </button>-->
+<!--          <button-->
+<!--            class="filter-btn"-->
+<!--            [class.active]="selectedFilter === 'Mobile'"-->
+<!--            (click)="filterProjects('Mobile')">-->
+<!--            Mobile-->
+<!--          </button>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </section>-->
 
     <section class="projects-grid-section">
       <div class="container">

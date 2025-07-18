@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { slideInAnimation } from '../../shared/animations/animation';
+import emailjs from '@emailjs/browser';
 
 @Component({
   selector: 'app-contact',
@@ -25,35 +26,6 @@ import { slideInAnimation } from '../../shared/animations/animation';
       <div class="container">
         <div class="contact-grid">
           <div class="contact-info" [@slideIn]>
-            <h2>Informations de contact</h2>
-            <div class="contact-item">
-              <div class="contact-icon">
-                <i class="fas fa-envelope"></i>
-              </div>
-              <div class="contact-details">
-                <h3>Email</h3>
-                <p>-------</p>
-              </div>
-            </div>
-            <div class="contact-item">
-              <div class="contact-icon">
-                <i class="fas fa-phone"></i>
-              </div>
-              <div class="contact-details">
-                <h3>Téléphone</h3>
-                <p>+33 6 12 34 56 78</p>
-              </div>
-            </div>
-            <div class="contact-item">
-              <div class="contact-icon">
-                <i class="fas fa-map-marker-alt"></i>
-              </div>
-              <div class="contact-details">
-                <h3>Localisation</h3>
-                <p>Paris, France</p>
-              </div>
-            </div>
-
             <div class="social-section">
               <h3>Réseaux sociaux</h3>
               <div class="social-links">
@@ -61,7 +33,7 @@ import { slideInAnimation } from '../../shared/animations/animation';
                   <i class="fab fa-github"></i>
                   <span>GitHub</span>
                 </a>
-                <a href="https://linkedin.com/in/rouimiyoussef" target="_blank" class="social-link">
+                <a href="https://www.linkedin.com/in/youssef-rouimi-14b0a8138/" target="_blank" class="social-link">
                   <i class="fab fa-linkedin"></i>
                   <span>LinkedIn</span>
                 </a>
@@ -183,14 +155,24 @@ export class ContactComponent {
         this.contactForm.reset();
       }, 2000);
 
-      // In a real application, you would send the form data to your backend
-      // const formData = this.contactForm.value;
-      // this.sendEmail(formData);
+       const formData = this.contactForm.value;
+       this.sendEmail(formData);
     }
   }
 
   private sendEmail(formData: any): void {
-    // Implementation for sending email using EmailJS or your backend API
-    console.log('Sending email with data:', formData);
+      emailjs.sendForm(
+        'service_s4q7grf',
+        'template_q4k9wrl',
+        document.querySelector(formData) as HTMLFormElement,
+        'uKIJupGKf4Eef-PX9'
+      ).then(
+        (result: any) => {
+          alert('Message envoyé avec succès !');
+        },
+        (error: any) => {
+          alert('Erreur : ' + error.text);
+        }
+      );
   }
 }

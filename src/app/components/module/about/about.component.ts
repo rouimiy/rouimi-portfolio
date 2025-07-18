@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import {Experience, Skill, SkillsService} from '../../../core/services/skills.service';
+import {Component, OnInit} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {Skill, SkillsService} from '../../../core/services/skills.service';
 import {slideInAnimation, staggerAnimation} from '../../shared/animations/animation';
 
 
@@ -81,7 +81,7 @@ import {slideInAnimation, staggerAnimation} from '../../shared/animations/animat
           </div>
           <div class="personal-card">
             <div class="card-icon">
-              <i class="fas fa-target"></i>
+              <i class="fas fa-bullseye"></i>
             </div>
             <h3>Objectif</h3>
             <p>Créer des solutions digitales qui ont un impact positif et apportent de la valeur aux utilisateurs.</p>
@@ -94,19 +94,15 @@ import {slideInAnimation, staggerAnimation} from '../../shared/animations/animat
 })
 export class AboutComponent implements OnInit {
   skills: Skill[] = [];
-  experiences: Experience[] = [];
   skillCategories: any[] = [];
 
-  constructor(private skillsService: SkillsService) {}
+  constructor(private skillsService: SkillsService) {
+  }
 
   ngOnInit(): void {
     this.skillsService.getSkills().subscribe(skills => {
       this.skills = skills;
       this.organizeSkillsByCategory();
-    });
-
-    this.skillsService.getExperiences().subscribe(experiences => {
-      this.experiences = experiences;
     });
   }
 

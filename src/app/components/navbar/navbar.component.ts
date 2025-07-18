@@ -18,18 +18,22 @@ import { filter } from 'rxjs/operators';
         </div>
 
         <div class="navbar-menu" [class.active]="isMenuOpen">
-          <a *ngFor="let link of navLinks"
-             [routerLink]="link.path"
-             class="navbar-link"
-             [class.active]="currentRoute === link.path"
-             (click)="closeMenu()">
-            <i [class]="link.icon"></i>
-            <span>{{ link.label }}</span>
-          </a>
+          @for (link of navLinks; track link.path) {
+            <a [routerLink]="link.path"
+               class="navbar-link"
+               [class.active]="currentRoute === link.path"
+               (click)="closeMenu()">
+              <i [class]="link.icon"></i>
+              <span>{{ link.label }}</span>
+            </a>
+          }
 
           <button class="theme-toggle" (click)="toggleTheme()">
-            <i class="fas fa-moon" *ngIf="!isDarkMode"></i>
-            <i class="fas fa-sun" *ngIf="isDarkMode"></i>
+            @if (!isDarkMode) {
+              <i class="fas fa-moon"></i>
+            } @else {
+              <i class="fas fa-sun"></i>
+            }
           </button>
         </div>
 

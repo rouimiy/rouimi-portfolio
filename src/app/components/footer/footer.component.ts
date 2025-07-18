@@ -10,11 +10,6 @@ import { CommonModule } from '@angular/common';
       <div class="footer-container">
         <div class="footer-content">
           <div class="footer-section">
-            <h3>Rouimi Youssef</h3>
-            <p>Développeur web & mobile freelance passionné par les technologies modernes et l'innovation.</p>
-          </div>
-
-          <div class="footer-section">
             <h4>Liens rapides</h4>
             <ul>
               <li><a href="/public" class="footer-link">Accueil</a></li>
@@ -31,14 +26,8 @@ import { CommonModule } from '@angular/common';
               <a href="https://github.com/rouimiyoussef" target="_blank" class="social-link">
                 <i class="fab fa-github"></i>
               </a>
-              <a href="https://linkedin.com/in/rouimiyoussef" target="_blank" class="social-link">
+              <a href="https://www.linkedin.com/in/youssef-rouimi-14b0a8138/" target="_blank" class="social-link">
                 <i class="fab fa-linkedin"></i>
-              </a>
-              <a href="https://twitter.com/rouimiyoussef" target="_blank" class="social-link">
-                <i class="fab fa-twitter"></i>
-              </a>
-              <a href="mailto:contact@rouimiyoussef.fr" class="social-link">
-                <i class="fas fa-envelope"></i>
               </a>
             </div>
           </div>
@@ -46,7 +35,6 @@ import { CommonModule } from '@angular/common';
 
         <div class="footer-bottom">
           <p>&copy; {{ currentYear }} Rouimi Youssef. Tous droits réservés.</p>
-          <p>Développé avec <i class="fas fa-heart"></i> et Angular</p>
         </div>
       </div>
     </footer>
